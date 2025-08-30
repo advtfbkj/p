@@ -118,8 +118,7 @@
             <div class="labels">Language: C — Console based</div>
             <p style="margin:8px 0;color:var(--muted)">A simple banking management system written in C. Features include creating accounts, deposit, withdraw, balance enquiry, and list of accounts. Good for learning file I/O, structures and menu-driven programming.</p>
           </div>
-          <div class="project-actions">
-          </div>
+          <div class="project-actions"></div>
         </div>
         <hr style="border:none;border-top:1px dashed #eef2ff;margin:12px 0">
       </div>
@@ -141,6 +140,8 @@
             <!-- Assignments will be added dynamically -->
           </tbody>
         </table>
+
+      
       </div>
     </section>
 
@@ -154,12 +155,10 @@
               <input id="local-file" type="file" accept="video/*" />
               <button class="btn" onclick="playLocal()">Play</button>
             </div>
-
             <div style="margin-top:14px" class="labels">Add notes / caption</div>
             <textarea id="video-caption" rows="3" placeholder="Add a short caption for your video..."></textarea>
             <div style="margin-top:8px;display:flex;gap:8px"><button class="btn btn-primary" onclick="saveVideoMeta()">Save</button><button class="btn" onclick="clearVideo()">Clear</button></div>
           </div>
-
           <div>
             <div class="video-preview" id="video-preview">No video added</div>
             <div style="margin-top:8px;color:var(--muted)" id="video-note"></div>
@@ -180,14 +179,13 @@
         <div style="margin-top:8px"><button class="btn btn-primary">Send (client-only)</button></div>
       </div>
     </section>
-
   </main>
 
   <footer>
     <div class="container">© Rohit Chand — B.Tech CSE • Built with HTML/CSS/JS</div>
   </footer>
 
-  <!-- Modal for showing code -->
+  <!-- Modal -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -199,18 +197,18 @@
   </div>
 
   <script>
-    // Basic dynamic content
+    // Skills
     const skills = ['C', 'Python'];
     const skillsList = document.getElementById('skills-list');
-    skills.forEach(s=>{const el=document.createElement('div');el.className='skill';el.textContent=s;skillsList.appendChild(el)});
+    skills.forEach(s=>{
+      const el=document.createElement('div');
+      el.className='skill';
+      el.textContent=s;
+      skillsList.appendChild(el);
+    });
 
     function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
     const modal = document.getElementById('modal');
-    function openModal(which){
-      document.getElementById('modal-title').textContent = which === 'banking' ? 'Banking Management System (C) - Example code' : 'Other Projects - Notes';
-      document.getElementById('modal-body').innerHTML = which === 'banking' ? `<pre>${bankingSample()}</pre>` : `<p style="color:${'#334155'}">Small python scripts, utilities and notes on other projects.</p>`;
-      modal.classList.add('show');
-    }
     function closeModal(){modal.classList.remove('show');}
 
     // Video embedding
@@ -227,18 +225,22 @@
       document.getElementById('video-note').textContent = note || 'No caption';
       alert('Video metadata saved locally in the page');
     }
-    function clearVideo(){document.getElementById('video-preview').textContent='No video added';document.getElementById('video-note').textContent='';document.getElementById('yt-url')?.value='';document.getElementById('local-file').value=null;document.getElementById('video-caption').value='';}
+    function clearVideo(){
+      document.getElementById('video-preview').textContent='No video added';
+      document.getElementById('video-note').textContent='';
+      document.getElementById('local-file').value=null;
+      document.getElementById('video-caption').value='';
+    }
 
-    // Assignment data
+    // Assignment list
     const assignments = [
-      {name: "Assignment 1", heading: "C Basics", link: "files/assignment1.pdf"},
-      {name: "Assignment 2", heading: "Data Structures", link: "files/assignment2.pdf"},
-      {name: "Assignment 3", heading: "Algorithms", link: "files/assignment3.pdf"},
-      {name: "Assignment 4", heading: "Python Automation", link: "files/assignment4.pdf"},
-      {name: "Assignment 5", heading: "Mini Project", link: "files/assignment5.pdf"},
+      {name: "Assignment 1", heading: "SWOC Analysis", link: "https://drive.google.com/file/d/1wSq89LHiGXrqnQmdl6IoiaA4tKY6t-B3/view?usp=drive_link"},
+      {name: "Assignment 2", heading: "", link: "files/assignment2.pdf"},
+      {name: "Assignment 3", heading: "", link: "files/assignment3.pdf"},
+      {name: "Assignment 4", heading: "", link: "files/assignment4.pdf"},
+      {name: "Assignment 5", heading: "", link: "files/assignment5.pdf"},
     ];
 
-    // Populate assignment table
     const assignmentList = document.getElementById('assignment-list');
     assignments.forEach(a=>{
       const tr = document.createElement('tr');
