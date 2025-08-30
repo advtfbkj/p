@@ -71,6 +71,7 @@
           <a class="nav" href="#about">About</a>
           <a class="nav" href="#skills">Skills</a>
           <a class="nav" href="#projects">Projects</a>
+          <a class="nav" href="#assignments">Assignments</a>
           <a class="nav" href="#video">Video</a>
           <a class="nav" href="#contact">Contact</a>
         </div>
@@ -89,11 +90,8 @@
         </div>
         <div class="cta">
           <button class="btn btn-primary" onclick="scrollToSection('projects')">See Projects</button>
-          
         </div>
       </div>
-
-      
     </section>
 
     <section id="about">
@@ -114,7 +112,6 @@
     <section id="projects">
       <div class="card project">
         <h2>Projects</h2>
-
         <div class="project-row">
           <div>
             <div style="font-weight:800">Banking Management System (C)</div>
@@ -124,18 +121,34 @@
           <div class="project-actions">
           </div>
         </div>
-
         <hr style="border:none;border-top:1px dashed #eef2ff;margin:12px 0">
+      </div>
+    </section>
 
-        
+    <!-- Assignments Section -->
+    <section id="assignments">
+      <div class="card">
+        <h2>Assignments</h2>
+        <table style="width:100%;border-collapse:collapse;margin-top:12px">
+          <thead>
+            <tr style="text-align:left;border-bottom:1px solid #e6eefc">
+              <th style="padding:8px">Assignment</th>
+              <th style="padding:8px">Heading</th>
+              <th style="padding:8px">File</th>
+            </tr>
+          </thead>
+          <tbody id="assignment-list">
+            <!-- Assignments will be added dynamically -->
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section id="video">
       <div class="card">
         <h2>Add Assigment</h2>
         <div class="video-area">
-         
-
+          <div>
             <div style="margin-top:12px" class="labels">upload a local video file (mp4)</div>
             <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
               <input id="local-file" type="file" accept="video/*" />
@@ -192,11 +205,6 @@
     skills.forEach(s=>{const el=document.createElement('div');el.className='skill';el.textContent=s;skillsList.appendChild(el)});
 
     function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
-
-    // Resume button (placeholder download)
-   
-
-    // Modal
     const modal = document.getElementById('modal');
     function openModal(which){
       document.getElementById('modal-title').textContent = which === 'banking' ? 'Banking Management System (C) - Example code' : 'Other Projects - Notes';
@@ -205,22 +213,7 @@
     }
     function closeModal(){modal.classList.remove('show');}
 
-  
-    // Video embedding: accepts YouTube URL or local file
-    function embedYoutube(){
-      const url = document.getElementById('yt-url').value.trim();
-      if(!url){alert('Paste a YouTube URL or upload a file.');return}
-      const idMatch = url.match(/[?&]v=([^&]+)/) || url.match(/youtu\.be\/(.+)$/);
-      const id = idMatch ? idMatch[1] : null;
-      const preview = document.getElementById('video-preview');
-      if(id){
-        preview.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" title="YouTube video" frameborder="0" allowfullscreen></iframe>`;
-        document.getElementById('video-note').textContent = document.getElementById('video-caption').value || 'YouTube embed';
-      } else {
-        alert('Could not extract YouTube id. Make sure the link is correct.');
-      }
-    }
-
+    // Video embedding
     function playLocal(){
       const file = document.getElementById('local-file').files[0];
       const preview = document.getElementById('video-preview');
@@ -229,14 +222,33 @@
       preview.innerHTML = `<video controls style="width:100%;height:100%;border-radius:6px"><source src="${url}" type="${file.type}">Your browser does not support video.</video>`;
       document.getElementById('video-note').textContent = document.getElementById('video-caption').value || (file.name + ' (local)');
     }
-
     function saveVideoMeta(){
       const note = document.getElementById('video-caption').value;
       document.getElementById('video-note').textContent = note || 'No caption';
       alert('Video metadata saved locally in the page');
     }
-    function clearVideo(){document.getElementById('video-preview').textContent='No video added';document.getElementById('video-note').textContent='';document.getElementById('yt-url').value='';document.getElementById('local-file').value=null;document.getElementById('video-caption').value='';}
+    function clearVideo(){document.getElementById('video-preview').textContent='No video added';document.getElementById('video-note').textContent='';document.getElementById('yt-url')?.value='';document.getElementById('local-file').value=null;document.getElementById('video-caption').value='';}
 
+    // Assignment data
+    const assignments = [
+      {name: "Assignment 1", heading: "C Basics", link: "files/assignment1.pdf"},
+      {name: "Assignment 2", heading: "Data Structures", link: "files/assignment2.pdf"},
+      {name: "Assignment 3", heading: "Algorithms", link: "files/assignment3.pdf"},
+      {name: "Assignment 4", heading: "Python Automation", link: "files/assignment4.pdf"},
+      {name: "Assignment 5", heading: "Mini Project", link: "files/assignment5.pdf"},
+    ];
+
+    // Populate assignment table
+    const assignmentList = document.getElementById('assignment-list');
+    assignments.forEach(a=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="padding:8px">${a.name}</td>
+        <td style="padding:8px">${a.heading}</td>
+        <td style="padding:8px"><a href="${a.link}" target="_blank">View File</a></td>
+      `;
+      assignmentList.appendChild(tr);
+    });
   </script>
 </body>
 </html>
